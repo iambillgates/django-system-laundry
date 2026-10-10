@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard - Laundry Orders</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <div class="max-w-6xl mx-auto p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold">Dashboard - Laundry Orders</h1>
+            <a href="{% url 'admin_logout' %}" 
+               class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+                Logout
+            </a>
+        </div>
+        <table class="min-w-full bg-white rounded shadow overflow-hidden">
+            <thead class="bg-purple-600 text-white">
+                <tr>
+                    <th class="py-3 px-4 text-left">E-Faktur Number</th>
+                    <th class="py-3 px-4 text-left">Name</th>
+                    <th class="py-3 px-4 text-left">Laundry Type</th>
+                    <th class="py-3 px-4 text-left">Pickup Date</th>
+                    <th class="py-3 px-4 text-left">Pickup Time</th>
+                    <th class="py-3 px-4 text-left">Status</th>
+                    <th class="py-3 px-4 text-left">Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr class="border-b hover:bg-gray-100">
+                    <td class="py-2 px-4">{{ order.e_invoice_number }}</td>
+                    <td class="py-2 px-4">{{ order.name }}</td>
+                    <td class="py-2 px-4">{{ order.get_laundry_type_display }}</td>
+                    <td class="py-2 px-4">{{ order.pickup_date }}</td>
+                    <td class="py-2 px-4">{{ order.pickup_time }}</td>
+                    <td class="py-2 px-4">{{ order.get_status_display }}</td>
+                    <td class="py-2 px-4">{{ order.created_at }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center py-4">No orders found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

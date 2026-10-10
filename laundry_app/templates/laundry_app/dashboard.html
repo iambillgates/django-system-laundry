@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard - Laundry Orders</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <div class="max-w-6xl mx-auto p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold">Dashboard - Laundry Orders</h1>
+            <a href="{% url 'admin_logout' %}" 
+               class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+                Logout
+            </a>
+        </div>
+
+        <!-- Search Form -->
+        <form method="GET" class="mb-6">
+            <div class="flex gap-4">
+                <div class="flex-1">
+                    <input type="text" 
+                           name="search" 
+                           placeholder="Search by E-Faktur Number" 
+                           value="{{ request.GET.search }}"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <button type="submit" 
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md text-sm font-medium">
+                    Search
+                </button>
+                {% if request.GET.search %}
+                <a href="{% url 'dashboard' %}" 
+                   class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-md text-sm font-medium">
+                    Clear
+                </a>
+                {% endif %}
+            </div>
+        </form>
+
+        {% if messages %}
+        <div class="mb-4">
+            {% for message in messages %}
+                <div class="p-4 {% if message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %} rounded">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <table class="min-w-full bg-white rounded shadow overflow-hidden">
+            <thead class="bg-blue-600 text-white">
+                <tr>
+                    <th class="py-3 px-4 text-left">E-Faktur Number</th>
+                    <th class="py-3 px-4 text-left">Name</th>
+                    <th class="py-3 px-4 text-left">Laundry Type</th>
+                    <th class="py-3 px-4 text-left">Pickup Date</th>
+                    <th class="py-3 px-4 text-left">Pickup Time</th>
+                    <th class="py-3 px-4 text-left">Status</th>
+                    <th class="py-3 px-4 text-left">Biaya</th>
+                    <th class="py-3 px-4 text-left">Payment Status</th>
+                    <th class="py-3 px-4 text-left">Created At</th>
+                    <th class="py-3 px-4 text-left">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr class="border-b hover:bg-gray-100">
+                    <td class="py-2 px-4">{{ order.e_invoice_number }}</td>
+                    <td class="py-2 px-4">{{ order.name }}</td>
+                    <td class="py-2 px-4">{{ order.get_laundry_type_display }}</td>
+                    <td class="py-2 px-4">{{ order.pickup_date }}</td>
+                    <td class="py-2 px-4">{{ order.pickup_time }}</td>
+                    <td class="py-2 px-4">
+                        <form method="POST" action="{% url 'update_status' order.id %}">
+                            {% csrf_token %}
+                            <select name="status" 
+                                    onchange="this.form.submit()"
+                                    class="w-full px-2 py-1 border border-gray-300 rounded text-sm
+                                           {% if order.status == 'pending' %}bg-yellow-100
+                                           {% elif order.status == 'approve' %}bg-blue-100
+                                           {% elif order.status == 'proses' %}bg-purple-100
+                                           {% elif order.status == 'complete' %}bg-green-100{% endif %}">
+                                <option value="pending" {% if order.status == 'pending' %}selected{% endif %}>Pending</option>
+                                <option value="approve" {% if order.status == 'approve' %}selected{% endif %}>Approve</option>
+                                <option value="proses" {% if order.status == 'proses' %}selected{% endif %}>Proses</option>
+                                <option value="complete" {% if order.status == 'complete' %}selected{% endif %}>Complete</option>
+                            </select>
+                        </form>
+                    </td>
+                    <td class="py-2 px-4">{{ order.biaya }}</td>
+                    <td class="py-2 px-4">{{ order.get_payment_method_display }}</td>
+                    <td class="py-2 px-4">{{ order.created_at|date:"d/m/Y H:i" }}</td>
+                    <td class="py-2 px-4">
+                        <form method="POST" action="{% url 'delete_order' order.id %}" onsubmit="return confirm('Are you sure you want to delete this order?');">
+                            {% csrf_token %}
+                            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center py-4">
+                        {% if request.GET.search %}
+                            No orders found for "{{ request.GET.search }}".
+                        {% else %}
+                            No orders found.
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

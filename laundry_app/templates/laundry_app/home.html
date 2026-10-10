@@ -1,0 +1,371 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Laundry Asaka - Layanan Laundry Profesional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .gradient-bg {
+            background: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
+        }
+        .form-input {
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            box-shadow: 0 0 0 2px rgba(107, 115, 255, 0.2);
+            border-color: #6B73FF;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-tshirt text-blue-600 text-2xl"></i>
+                    <span class="text-xl font-bold text-gray-800">Laundry Asaka</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-800 hover:text-blue-600">Home</a>
+                    <a href="#services" class="text-gray-800 hover:text-blue-600">Layanan</a>
+                    <a href="#reservation" class="text-gray-800 hover:text-blue-600">Reservasi</a>
+                    <a href="#tracking" class="text-gray-800 hover:text-blue-600">Tracking</a>
+                </div>
+                <button class="md:hidden focus:outline-none" id="mobile-menu-button">
+                    <i class="fas fa-bars text-gray-800 text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="hidden md:hidden px-6 pb-4" id="mobile-menu">
+            <a href="#home" class="block py-2 text-gray-800 hover:text-blue-600">Home</a>
+            <a href="#services" class="block py-2 text-gray-800 hover:text-blue-600">Layanan</a>
+            <a href="#reservation" class="block py-2 text-gray-800 hover:text-blue-600">Reservasi</a>
+            <a href="#tracking" class="block py-2 text-gray-800 hover:text-blue-600">Tracking</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg text-white py-20">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 animate-fade-in">
+                <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">Laundry Kiloan Profesional dengan Hasil Terbaik</h1>
+                <p class="text-lg md:text-xl mb-8 opacity-90">Cuci, setrika, dan antar-jemput pakaian Anda dengan hasil sempurna dan pelayanan terbaik.</p>
+                <div class="flex space-x-4">
+                    <a href="#reservation" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition duration-300">Pesan Sekarang</a>
+                    <a href="#services" class="border border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-blue-600 transition duration-300">Lihat Layanan</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 mt-10 md:mt-0 animate-fade-in delay-1">
+                <img src="https://images.unsplash.com/photo-1604176354204-9268737828e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Laundry Service" class="rounded-xl shadow-2xl" />
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Layanan Kami</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 animate-fade-in delay-1">
+                    <div class="text-blue-600 text-4xl mb-4">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Laundry Kiloan</h3>
+                    <p class="text-gray-600">Cuci bersih pakaian Anda dengan detergen berkualitas dan proses yang higienis.</p>
+                    <div class="mt-4">
+                        <span class="text-blue-600 font-medium">Mulai dari Rp 10.000/kg</span>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 animate-fade-in delay-2">
+                    <div class="text-blue-600 text-4xl mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-12 h-12" viewBox="0 0 24 24">
+                            <path d="M21 13v-2c0-2.21-1.79-4-4-4H7V6a1 1 0 1 0-2 0v2H3a1 1 0 0 0 0 2h2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-2 0H7v-4h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Setrika</h3>
+                    <p class="text-gray-600">Setrika profesional dengan hasil rapi dan halus untuk pakaian kesayangan Anda.</p>
+                    <div class="mt-4">
+                        <span class="text-blue-600 font-medium">Mulai dari Rp 5.000/kg</span>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 animate-fade-in">
+                    <div class="text-blue-600 text-4xl mb-4">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Antar-Jemput</h3>
+                    <p class="text-gray-600">Kami jemput dan antar pakaian laundry Anda ke alamat yang diinginkan.</p>
+                    <div class="mt-4">
+                        <span class="text-blue-600 font-medium">Gratis untuk area tertentu</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+<section id="reservation" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="md:flex">
+                <!-- Left Panel -->
+                <div class="md:w-1/2 gradient-bg text-white p-8 md:p-12">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-6">Reservasi Online</h2>
+                    <p class="mb-6">Isi form untuk memesan layanan laundry kami. Kami akan menghubungi Anda untuk konfirmasi.</p>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center justify-center w-12 h-12 bg-white bg-opacity-20 rounded-full">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs opacity-80">Butuh bantuan?</p>
+                            <p class="font-medium">+62 123 4567 890</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel: Form -->
+                <div class="md:w-1/2 p-8 md:p-12">
+
+                    {% if messages %}
+                        <div>
+                            {% for message in messages %}
+                                <div class="mb-4 p-4 rounded {{ message.tags }} bg-green-100 text-green-800">{{ message }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <form method="post" action="{% url 'home' %}" class="space-y-6">
+                        {% csrf_token %}
+
+                        <div>
+                           
+                            <div>
+                                {{ form.name }}
+                            </div>
+                        </div>
+
+                        <div>
+                            
+                            <div>
+                                {{ form.address }}
+                            </div>
+                        </div>
+
+                        <div>
+                           
+                            <div>
+                                {{ form.whatsapp }}
+                            </div>
+                        </div>
+
+                        <div>
+                           
+                            <div>
+                                {{ form.laundry_type }}
+                            </div>
+                        </div>
+
+                        <div>
+                            
+                            <div>
+                                {{ form.estimate_kilo }}
+                            </div>
+                        </div>
+
+                        <div>
+                            
+                            <div>
+                                {{ form.payment_method }}
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                
+                                <div>
+                                    {{ form.pickup_date }}
+                                </div>
+                            </div>
+                            <div>
+                                
+                                <div>
+                                    {{ form.pickup_time }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full gradient-bg text-white py-3 px-4 rounded-lg font-medium hover:opacity-90 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                            Buat Reservasi
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Tracking Section -->
+       <section id="tracking" class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Cek Status Laundry</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">Masukkan nomor e-faktur Anda untuk melacak status laundry</p>
+            <div class="w-20 h-1 bg-blue-600 mx-auto mt-4"></div>
+        </div>
+
+        <div class="max-w-2xl mx-auto bg-gray-50 rounded-xl shadow-md p-8">
+            <form method="post" action="{% url 'track_order' %}" class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
+                {% csrf_token %}
+                {{ track_form.e_invoice_number.errors }}
+                {{ track_form.e_invoice_number }}
+                <button type="submit" class="gradient-bg text-white py-3 px-6 rounded-lg font-medium hover:opacity-90">
+                    Lacak
+                </button>
+            </form>
+
+            {% if order %}
+            <div class="mt-10 bg-white p-6 rounded-lg shadow">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Status Laundry</h3>
+                        <p class="text-gray-600">Nomor Invoice: <span class="text-blue-600 font-semibold">{{ order.e_invoice_number }}</span></p>
+                    </div>
+                    <span class="px-3 py-1 rounded-full text-sm font-medium
+                        {% if order.status == 'pending' %}bg-yellow-100 text-yellow-800
+                        {% elif order.status == 'approve' %}bg-blue-100 text-blue-800
+                        {% elif order.status == 'proses' %}bg-purple-100 text-purple-800
+                        {% elif order.status == 'complete' %}bg-green-100 text-green-800
+                        {% endif %}
+                    ">{{ order.get_status_display }}</span>
+                </div>
+
+                <div class="space-y-4 border-l-4 border-blue-600 pl-6 ml-2">
+                    <!-- Step 1: Pending -->
+                    <div class="flex items-start">
+                        <div class="h-8 w-8 rounded-full 
+                            {% if order.status in 'pending approve proses complete' %}bg-blue-600 text-white
+                            {% else %}bg-gray-300 text-gray-600{% endif %}
+                            flex items-center justify-center">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm font-medium text-gray-900">Diterima</p>
+                            <p class="text-sm text-gray-500">Laundry Anda telah masuk ke sistem kami</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Approve -->
+                    <div class="flex items-start">
+                        <div class="h-8 w-8 rounded-full 
+                            {% if order.status in 'approve proses complete' %}bg-blue-600 text-white
+                            {% else %}bg-gray-300 text-gray-600{% endif %}
+                            flex items-center justify-center">
+                            <i class="fas fa-thumbs-up"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm font-medium text-gray-900">Disetujui</p>
+                            <p class="text-sm text-gray-500">Pesanan disetujui dan akan segera diproses</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Proses -->
+                    <div class="flex items-start">
+                        <div class="h-8 w-8 rounded-full 
+                            {% if order.status in 'proses complete' %}bg-blue-600 text-white
+                            {% else %}bg-gray-300 text-gray-600{% endif %}
+                            flex items-center justify-center">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm font-medium text-gray-900">Diproses</p>
+                            <p class="text-sm text-gray-500">Laundry sedang dalam proses pencucian dan setrika</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Complete -->
+                    <div class="flex items-start">
+                        <div class="h-8 w-8 rounded-full 
+                            {% if order.status == 'complete' %}bg-green-600 text-white
+                            {% else %}bg-gray-300 text-gray-600{% endif %}
+                            flex items-center justify-center">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm font-medium text-gray-900">Selesai</p>
+                            <p class="text-sm text-gray-500">Laundry Anda sudah selesai dan siap dikirim/diambil</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+
+    <!-- Footer -->
+    <footer class="bg-blue-600 text-white text-center py-6 mt-12">
+        <p>&copy; 2024 Laundry Asaka. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Tracking form interaction (example)
+        const trackForm = document.getElementById('trackingForm');
+        const trackingResult = document.getElementById('trackingResult');
+        const displayInvoice = document.getElementById('display_invoice');
+        const statusBadge = document.getElementById('statusBadge');
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const step3 = document.getElementById('step3');
+
+        trackForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const invoiceNumber = trackForm.e_invoice_number.value.trim();
+            if (!invoiceNumber) return;
+
+            // Simulate tracking result display
+            displayInvoice.textContent = invoiceNumber;
+            statusBadge.textContent = 'Dalam Proses';
+            statusBadge.className = 'px-4 py-1 rounded-full text-sm font-medium bg-yellow-400 text-yellow-900';
+
+            step1.classList.remove('bg-gray-300');
+            step1.classList.add('bg-blue-600', 'text-white');
+            step2.classList.remove('bg-gray-300');
+            step2.classList.add('bg-gray-300', 'text-gray-600');
+            step3.classList.remove('bg-gray-300');
+            step3.classList.add('bg-gray-300', 'text-gray-600');
+
+            trackingResult.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>

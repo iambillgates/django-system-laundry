@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Laundry - {{ order.e_invoice_number }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #e6e9ff;
+            --secondary: #3f37c9;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --info: #4895ef;
+            --border-radius: 12px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7ff;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .back-btn i {
+            margin-right: 5px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .customer-info {
+            background-color: var(--primary-light);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .info-item {
+            margin-bottom: 10px;
+        }
+
+        .info-item strong {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--secondary);
+            margin-bottom: 3px;
+        }
+
+        .info-value {
+            font-size: 0.95rem;
+        }
+
+        .status-card {
+            border-radius: var(--border-radius);
+            padding: 15px;
+            background-color: #f0f8ff;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--info);
+        }
+
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .status-title {
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-badge.complete {
+            background-color: rgba(76, 201, 240, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin-top: 20px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #ddd;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 20px;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-item.complete {
+            opacity: 1;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -30px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: white;
+            border: 3px solid var(--primary);
+        }
+
+        .timeline-item.complete .timeline-dot {
+            background-color: var(--success);
+            border-color: var(--success);
+        }
+
+        .timeline-content {
+            padding: 10px 15px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .timeline-date {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .timeline-title {
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .timeline-desc {
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary);
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        @media (max-width: 480px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="{% url 'home' %}" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Beranda
+            </a>
+            <h1>Status Cucian - {{ order.e_invoice_number }}</h1>
+        </div>
+
+        <div class="content">
+            <div class="customer-info">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Nama:</strong>
+                        <div class="info-value">{{ order.name }}</div>
+                    </div>
+                    <div class="info-item">
+                        <strong>Alamat:</strong>
+                        <div class="info-value">{{ order.address }}</div>
+                    </div>
+                    <div class="info-item">
+                        <strong>Whatsapp:</strong>
+                        <div class="info-value">{{ order.whatsapp }}</div>
+                    </div>
+                    <div class="info-item">
+                        <strong>Jenis Laundry:</strong>
+                        <div class="info-value">{{ order.get_laundry_type_display }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-card">
+                <div class="status-header">
+                    <div class="status-title">Status Pesanan</div>
+                    <div class="status-badge {% if order.get_status_display == 'Complete' %}complete{% endif %}">{{ order.get_status_display }}</div>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item {% if order.status == 'created' or order.status == 'complete' or order.status == 'picked_up' or order.status == 'processing' %}complete{% endif %}">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">{{ order.created_at|date:"F j, Y, g:i a" }}</div>
+                            <div class="timeline-title">Pesanan Dibuat</div>
+                            <div class="timeline-desc">Pesanan laundry telah diterima sistem</div>
+                        </div>
+                    </div>
+                <div class="timeline-item complete">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">{% if order.picked_up_at %}{{ order.picked_up_at|date:"F j, Y, g:i a" }}{% else %} - {% endif %}</div>
+                        <div class="timeline-title">Penjemputan</div>
+                        <div class="timeline-desc">Pakaian telah dijemput oleh kurir</div>
+                    </div>
+                </div>
+                <div class="timeline-item complete">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">{% if order.processing_at %}{{ order.processing_at|date:"F j, Y, g:i a" }}{% else %} - {% endif %}</div>
+                        <div class="timeline-title">Pencucian & Setrika</div>
+                        <div class="timeline-desc">Pakaian sedang dalam proses pencucian dan penyetrikaan</div>
+                    </div>
+                </div>
+                <div class="timeline-item complete">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">{% if order.completed_at %}{{ order.completed_at|date:"F j, Y, g:i a" }}{% else %} - {% endif %}</div>
+                        <div class="timeline-title">Pesanan Complete</div>
+                        <div class="timeline-desc">Pesanan telah selesai dan siap diantar kembali</div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <a href="https://wa.me/{{ order.whatsapp }}" class="btn" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-whatsapp"></i> Hubungi via WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Animation for timeline items
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        timelineItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.style.opacity = '1';
+            }, index * 200);
+        });
+    </script>
+</body>
+</html>
