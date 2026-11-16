@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,12 +21,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-2%1g*ttu&wx^bkgecc3(x8f&f&42*hw%@48($8_*&dl)jim5e2"
+# Diambil dari environment variable (lihat .env.example). Jangan pernah
+# menulis secret key asli di file ini — nilai lama sudah ter-commit ke git
+# dan harus dirotasi.
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Default False; set DEBUG=True di .env hanya untuk development lokal.
+DEBUG = os.environ.get("DEBUG", "False").lower() in ("1", "true", "yes")
 
-ALLOWED_HOSTS = ["znyfdw-8000.csb.app", "localhost", "127.0.0.1"]
+# Host yang diizinkan, dipisah koma di env var. Default hanya localhost.
+# (Host preview CodeSandbox lama sudah dihapus dari default.)
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+    if host.strip()
+]
 
 
 # Application definition
@@ -103,9 +114,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+# UI aplikasi berbahasa Indonesia dan beroperasi di WIB.
+LANGUAGE_CODE = "id"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Jakarta"
 
 USE_I18N = True
 
